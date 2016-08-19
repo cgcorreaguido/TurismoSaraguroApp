@@ -1,0 +1,526 @@
+<!-- Copyright (c) 2012 Mobile Developer Solutions -->
+<!DOCTYPE HTML>
+<html>
+  <head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+
+    <title>Turismo Movil</title>
+
+ 	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.css" />
+	<link rel="stylesheet" href="index.css" />
+
+    <script src="jquery.mobile/jquery-1.8.3.js"></script>
+	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="controlador/cordova.js"></script>
+	<script type="text/javascript" charset="utf-8" src="index.js"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="https://raw.githubusercontent.com/HPNeo/gmaps/master/gmaps.js"></script>
+	
+	
+	<!--Script necesario para el Estudiante-->
+	<script type="text/javascript" src="controlador/lista_tipo_turisticos.js"></script>
+	<script type="text/javascript" src="controlador/lista_sitios_turisticos.js"></script>
+
+	<script type="text/javascript" src="controlador/lista_tipo_servicios.js"></script>
+	<script type="text/javascript" src="controlador/lista_servicio.js"></script>
+
+
+	<script type="text/javascript" src="controlador/mapaa.js"></script>
+	
+	<script type="text/javascript" charset="utf-8" src="https://phone-messenger.googlecode.com/svn-history/r16/trunk/war/libraries/sencha-touch-debug.js"></script>
+	
+	
+	
+	
+  	<script type="text/javascript">
+  
+	 function init(){
+		// Llama a onDeviceReady cuando PhoneGap se inicie
+	  	//
+	  	//En este momento, el documento esta cargado pero phonegap aun no.
+		// Cuando PhoneGap este listo y se comunique con el dispositivo nativo
+	    // se lanzara el evento `deviceready.
+	    
+	      document.addEventListener("deviceready", onDeviceReady, false);
+		
+	      // PhoneGap esta listo y ahora ya se pueden hacer llamadas a PhoneGap
+
+	   }
+	 
+	   function onDeviceReady() {
+		   document.addEventListener("backbutton", onBackKeyDown, false);
+		   function onBackKeyDown() {
+		   		salir(); 
+		   }
+	      //alert('El celular esta listo para el uso de la aplicación..!!');
+	   }
+	  
+	
+	
+	
+	   function salir(){
+	   	var opciones=new Array("Cancelar","Si");
+		 	//alert('a');
+		 	//navigator.app.exitApp(); 
+		 	 //navigator.notification.alert(
+		 			 navigator.notification.confirm(
+		             '¿Seguro que quieres cerrar la aplicación?', // mensaje a mostrar
+		             exitFromApp, // callback a invocar cuando el botón es presionado
+		             'Salir', // titulo de la ventana
+		             'Cancelar,Si' // etiquetas de los botones
+		     );
+		}
+	
+
+    function exitFromApp(buttonIndex) {
+           if (buttonIndex==2){
+        	   
+       		var ref = window.open('https://accounts.google.com/logout', '_blank', 'location=no,toolbar=no');
+               // close InAppBrowser after 5 seconds
+               setTimeout(function() {
+               	window.localStorage.clear();
+               	ref.close();
+               	localStorage.clear();
+               }, 3000);
+               navigator.app.exitApp();
+	        			        
+           }
+    }
+    
+
+	</script>
+
+	<style>
+
+	</style>
+
+	</head>
+  
+  
+  <body onload="init();">
+	<div data-role="page" id="page-home" class="type-interior" data-theme="c">
+
+	<div data-role="header" data-theme="b">
+		<h1>Turismo Saraguro</h1>
+ 		<a href="#" data-icon="home" data-iconpos="notext" id="intro" class="ui-btn-right">intro</a>
+	</div>
+
+	<script>
+	function AbrirMapa(){
+	  window.location.assign("seleccionar_rutas.html")
+	}
+	
+	function AbrirMapa2(){
+		  window.location.assign("lista_rutas.html")
+	}
+	  	  
+	  
+
+		  
+
+	</script>
+
+	<div data-role="content" data-theme="c">	
+		<div class="content-secondary">
+			<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+				<h3>Ruta Turística Online</h3>
+
+				<ul data-role="listview" data-theme="b" data-dividertheme="b">
+					<li id="listdivider" data-role="list-divider">Inicio</li>
+					<li><a id="click-datos_interes">Datos Generales</a></li>
+					<li><a onclick="AbrirMapa();" >Turismo</a></li>
+					<!--
+					<li><a id="click-hospedajes">Hospedajes</a></li>
+					<li><a id="click-comidas">Gastronomía</a></li>
+					<li><a id="click-musicales">Iglesias</a></li>
+					-->
+
+					<li><a id="click-sociales">Redes Sociales</a></li>
+					<!-- <li><a onclick="AbrirMapa2();" >Ruta Turistica2</a></li> -->										
+					<li><a id="click-creditos">Créditos</a></li>
+					
+				</ul>
+			</div>
+		</div>
+		<div class="content-primary">
+		    <div class="api-div" id="api-intro">
+		    <p><img width="80px" height="100px" src="jquery.mobile/images/icon.png" alt="" align="left"> <h2>Ruta Turistica</h2></p> 
+		         
+		         <br>
+				<blockquote>
+  				<p align="justify">Aplicación móvil de acceso libre que permite 
+  				visualizar los lugares turísticos que representa un 
+  				conjunto de los atractivos sitios más representativos 
+  				de este prestigioso lugar, poniendo a disposición del 
+  				visitante la riqueza por la que posee.
+  				</p>
+				</blockquote>
+				
+				<div>
+					
+					<!-- 
+					<a data-role="button"   data-icon="star"  onClick="window.open('http://www.bernardovaldivieso.edu.ec/','mywindow')" >Visitar sitio web</a>
+					 -->
+					
+					 
+					<a  onclick="salir()"  data-role="button"   data-icon="delete">Salir</a> 
+				
+				<p id="copyright">Aplicativo Móvil Online</p>
+				</div>		    					
+			</div>
+
+		    <div class="api-div" id="api-datos_interes">
+                <h2>Datos de interés de la ruta</h2>
+				<blockquote>
+  					<p> <code>SARAGURO</code> de las rutas.</p>
+				</blockquote>
+				<h4 class="help"><b>Origen, </b>Territorio, <br/>
+				<b>Idioma, </b>Ubicacion.</h4>
+			
+			
+					<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+						<h3>Origen</h3>	
+							<blockquote>
+			  					<p> <code>Origen</code></p>
+			  					<p>Saraguros tiene varias interpretaciones: se considera que antes de la conquista incásica los Saraguros formaban parte de los Paltas. Por los años de 1450 a 1520. Los historiadores señalan que Tupac Yupanqui y luego Huana Capac, al dirigirse al Reino de Quito, fueron dominando pueblos enteros pero, por la resistencia que presentaron fueron castigados y traslados a tierras del Perú y reemplazados por poblaciones de "mitmaccunas". La historia oral narrada en la población de Saraguro, también aporta la hipótesis del ancestro mitmacuna. Otra hipótesis afirma que los Saraguros son originarios de Bolivia, basándose fundamentalmente en las similitudes en la vestimenta con los Paquizhapas, Indígenas de la zona Boliviana de Urdaneta.
+</p>
+			  					
+			  				</blockquote>
+			  				
+					</div>
+					<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+						<h3>Territorio</h3>	
+						
+						<blockquote>
+						<p> <code>Territorio</code></p>
+							<p>En la provincia de Loja su territorialidad se ubica en los siguientes cantones: Saraguro, parroquias Saraguro, Tenta, Paraiso de Celén, San Antonio de Cumbe, El Tablón, Lluzapata, San Pablo de Tenta, Selva Alegre y Urdaneta; y Loja, parroquia San Lucas.<br>
+En la provincia de Zamora Chinchipe, en el cantón Zamora, parroquias, Guadalupe, Imbana, Guayzimi, Zurmi, 28 de Mayo, La Paz, Tutupali y Yantzaza.<br>
+Existe además migración del pueblo Saraguro a las provincias de Azuay y Pichincha.<br>
+No hay unanimidad de criterios en las fuentes consultadas. Se estima el pueblo Saraguro abarca una población que fluctúa entre los 37 000 y 60 000 habitantes, organizados en alrededor de 183 comunidades.
+							</p>
+						</blockquote>
+		
+		
+					</div>
+
+					<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+						<h3>Idioma</h3>	
+						
+						<blockquote>
+						<p> <code>Idioma</code></p>
+							El idioma materno del pueblo Saraguro es el Kichwa; actualmente enfrenta una grave problemática socio-lingüística, ya que se evidencia la pérdida de funcionalidad de la lengua materna convertida en pasiva en la mayoría de las comunidades, en las que se ha extendido el predominio y uso generalizado del Castellano como primera lengua.
+
+							</p>
+						</blockquote>
+		
+		
+					</div>
+
+					<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+						<h3>Ubicacion</h3>	
+						
+						<blockquote>
+						<p> <code>Ubicacion</code></p>El pueblo Saraguro se encuentra asentado en un vasto territorio que, en sentido horizontal, se extiende desde el extremo noroccidental de la provincia de Loja en la región Interandina, hasta las cercanías de la Cordillera del Cóndor en la provincia de 
+Zamora Chinchipe en la región Amazónica.</p>
+						</blockquote>
+		
+		
+					</div>
+
+			</div>
+
+
+		    <div class="api-div" id="api-hospedajes">
+                <h2>Hospedajes</h2>
+				<blockquote>
+  					<p> <code>Lugares</code> de hospedajes mas prestigiosos en la ciudad de loja.</p>
+				</blockquote>
+				<h4 class="help"><b>RESIDENCIAL ARMIJOS </b> , RESIDENCIAL SARAGURO <br/>
+				<b>ACHIK WASI</b></h4>
+			
+			
+					<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+						<h3>RESIDENCIAL ARMIJOS</h3>
+							<blockquote>
+			  					<p> <code>Hospedaje</code> con todos los servicios y comodidades. </p>
+			  					<center><img height="50%" width="75%" src="img/hospedajes/hotel_grand_victoria.png"></center>
+			  					
+			  				</blockquote>
+			  				<a data-role="button"   data-icon="star"  onClick="window.open(' http://www.grandvictoriabh.com/ ','mywindow')" >Residiencial Armijos</a>
+			  				
+					</div>
+					<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+						<h3>RESIDNECIAL SARAGURO</h3>
+							<blockquote>
+			  					<p> <code>Hospedaje</code> con todos los servicios y comodidades. </p>
+			  					<center><img height="50%" width="75%" src="img/hospedajes/hote_howard_johnson.png"></center>
+			  					
+			  				</blockquote>
+			  				<a data-role="button"   data-icon="star"  onClick="window.open('https://plus.google.com/116321932734652524680/about?gl=ec&hl=es ','mywindow')" >Residiencial Saraguro</a>
+			  				
+					</div>
+					<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+						<h3>ACHIK WASI</h3>
+							<blockquote>
+			  					<p> <code>Hospedaje</code> con todos los servicios y comodidades. </p>
+			  					<center><img height="50%" width="75%" src="img/hospedajes/hotel_quo_vadis.png"></center>
+			  					
+			  				</blockquote>
+			  				<a data-role="button"   data-icon="star"  onClick="window.open('http://www.quovadishotel.com.ec/','mywindow')" >ACHIK WASI</a>
+			  				
+					</div>
+		
+		
+
+			</div>
+			
+			
+			<div class="api-div" id="api-musicales">
+                <h2>Lugares atractivos</h2>
+				<blockquote>
+  					<p> <code>Sitios</code></p>
+				</blockquote>
+				<h4 class="help"><b>Iglesia Biblica amada de Dios</b> , Iglesia del buen pastor <br/>
+				<b>Iglesia Matriz Saraguro</b></h4>
+			
+					<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+						<h3>Iglesia Biblica amada de Dios</h3>
+							<blockquote>
+			  					<p> <code>Templo</code> destinado al culto religioso público en el cristianismo.</p>
+			  					<center><img height="50%" width="75%" src="img/iglesias/iglesia Matriz de Saraguro.jpg"></center>
+			  					
+			  				</blockquote>
+			  				<a data-role="button"   data-icon="star"  onClick="window.open('http://www.casatinku.amawebs.com/','mywindow')" >Casa Tinku</a>
+			  				
+					</div>
+					<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+						<h3>Iglesia del buen pastor</h3>
+							<blockquote>
+			  					<p> <code>Templo</code> destinado al culto religioso público en el cristianismo.</p>
+			  					<center><img height="50%" width="75%" src="img/iglesias/iglesia Matriz de Saraguro.jpg"></center>
+			  					
+			  				</blockquote>
+			  				<a data-role="button"   data-icon="star"  onClick="window.open('https://plus.google.com/116321932734652524680/about?gl=ec&hl=es ','mywindow')" >Hotel Howard Johnson</a>
+			  				
+					</div>
+					<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+						<h3>Iglesia Matriz Saraguro</h3>
+							<blockquote>
+			  					<p> <code>Templo</code> destinado al culto religioso público en el cristianismo.</p>
+			  					<center><img height="50%" width="75%" src="img/iglesias/iglesia Matriz de Saraguro.jpg"></center>
+			  					
+			  				</blockquote>
+			  				<a data-role="button"   data-icon="star"  onClick="window.open('https://www.facebook.com/laleyenda.showbar ','mywindow')" >Coyote</a>
+			  				
+					</div>
+		
+		
+
+			</div>
+
+
+
+			<div class="api-div" id="api-comidas">
+
+				        <h2>Comida Típica</h2>
+						<blockquote>
+		  					<p> <code>Sitio</code></p>
+						</blockquote>
+						<h4 class="help"><b>AYMARAY , DRAGÓN DE ORO , LA CASONA DEL SABOR </b></h4>
+					
+						<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+								<h3>AYMARAY</h3>
+									<blockquote>
+					  					<p> <code>Disfruta</code> de las mejores comidas típicas.</p>
+					  					<center><img height="50%" width="85%" src="img/comidas/mama_lola.jpg"></center>
+					  				</blockquote>
+			  				
+						</div>
+						<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+								<h3>DRAGÓN DE ORO</h3>
+									<blockquote>
+					  					<p> <code>Disfruta</code> de las mejores comidas típicas.</p>
+					  					<center><img height="50%" width="85%" src="img/comidas/mama_lola.jpg"></center>
+					  				</blockquote>
+			  				
+						</div>
+						<div data-role="collapsible" data-collapsed="true" data-theme="a" data-content-theme="b">
+								<h3>LA CASONA DEL SABOR</h3>
+									<blockquote>
+					  					<p> <code>Disfruta</code> de las mejores comidas típicas.</p>
+					  					<center><img height="50%" width="85%" src="img/comidas/mama_lola.jpg"></center>
+					  				</blockquote>
+			  				
+						</div>
+
+			</div>
+
+			<div class="api-div" id="api-sociales">
+                <h2>Redes Sociales</h2>
+				<blockquote>
+  					<p><code>Siguenos</code> ahora en nuestras redes sociales</p>
+				</blockquote>
+			   <ul>
+		        <li>
+		        	<a data-role="button"   data-icon="star" onClick="window.open('https://www.facebook.com/login.php?next=https%3A%2F%2Fwww.facebook.com%2Fpages%2FLOJA-Semillero-Muical%2F435827169924062%3F__mref%3Dmessage_bubble','mywindow')" >Facebook</a>
+		        </li>
+		      </ul>
+		      <ul>
+		        <li>
+		        	<a data-role="button"   data-icon="star" onClick="window.open('https://twitter.com/LOJATuristicaSM','mywindow')">Twitter +</a>
+		        </li>
+		      </ul>
+			
+		
+		
+
+			</div>
+
+		    
+
+		    
+
+		    <div class="api-div" id="api-accesos">
+				<h2>Accesos Directos</h2>
+				<blockquote>
+  					<p>Mediante <code>acesos directos</code>, acceder al navegador a sitios de la institución</p>
+				</blockquote>
+
+				<a data-role="button"   data-icon="star"  onClick="window.open('http://www.gmail.com/','mywindow')" >Correo</a>
+				<a data-role="button"   data-icon="home"  onClick="window.open('http://www.bernardovaldivieso.edu.ec/','mywindow')" >Sitio Web</a>
+				<ul><h4 class="help">Redes sociales</h4></ul>
+  				<ul>
+		        <li><a data-role="button"   data-icon="star" onClick="window.open('http://www.facebook.com/patronbernardo.bernardovaldivieso','mywindow')" >Facebook</a></li>
+		      </ul>
+		      <ul>
+		        <li>
+		        <a data-role="button"   data-icon="star" onClick="window.open('https://plus.google.com/u/0/117666530902581774882/','mywindow')">Google +</a></li>
+		      </ul>
+
+
+			</div>
+
+		    <div class="api-div" id="api-agenda">
+				<h2>Agenda Institucional</h2>
+				<blockquote>
+  					<p><code>Agenda</code> categorizada de docentes y administrativos.</p>
+				</blockquote>
+   				<!-- para la agenda -->
+
+			</div>
+
+		    <div class="api-div" id="api-usuarios">
+				<h2>Autenticación</h2>
+				<blockquote>
+					<p>Corresponde a <code>estudiante</code> o <code>docente</code> seleccione la opción adecuada.</p>
+				</blockquote>
+				
+				<ul data-role="listview" data-theme="c" data-dividertheme="b">
+					<!-- <li><a id="click-Categoria_Estudiantes">Estudiante</a></li> -->
+					<li><a id="clickLoginEstudiante">Estudiante</a></li>
+				</ul>
+				<br><br>
+				<ul data-role="listview" data-theme="c" data-dividertheme="b">
+					<li><a id="clickLoginDocente">Docente</a></li>
+				</ul>
+
+      			
+				<!-- intro intro  intro intro  intro intro  intro intro  intro intro -->
+			</div>
+<script>
+
+	
+	function AbrirMatutina()
+	  {
+	  window.location.assign("validar_estudiante/matutino.html")
+	  }
+	  function AbrirVespertina()
+	  {
+	  window.location.assign("validar_estudiante/vespertino.html")
+	  }
+	  function AbrirNocturno()
+	  {
+	  window.location.assign("validar_estudiante/nocturno.html")
+	  }
+	  
+	</script>
+			<div class="api-div" id="api-Categoria_Estudiantes">
+				<h2>Estudiantes en categoria</h2>
+				<blockquote>
+					<p>Seleccione el tipo de <code>sección</code> a la cual pertenece.</p>
+				</blockquote>
+				<ul data-role="listview" data-theme="c" data-dividertheme="b">
+					<!-- <li><a href="login_student_m.html">Matutina</a></li> -->
+					<li><a id="clickLoginM">Matutina</a></li>
+					
+				</ul><br><br>
+				<ul data-role="listview" data-theme="c" data-dividertheme="b">
+					<li><a id="clickLoginV">Vespertina</a></li>
+				</ul><br><br>
+				<ul data-role="listview" data-theme="c" data-dividertheme="b">
+					<li><a id="clickLoginN">Nocturna</a></li>
+				</ul>
+
+      			
+				<!-- intro intro  intro intro  intro intro  intro intro  intro intro -->
+			</div>
+
+
+
+		    <div class="api-div" id="api-creditos">
+				<h2>Créditos</h2>
+				<blockquote>
+  					<p><code>Acerca de</code></p>
+				</blockquote>
+
+				<h4 class="help"><strong>Educación Superior:</strong></h4>	
+				<center><img width="50px" src="jquery.mobile/images/logo_unl.png"></center>
+ 				<h3 align="center">UNIVERSIDAD NACIONAL DE LOJA</h3>
+				
+
+
+				<h4 class="help"><strong>Carrera:</strong></h4>	
+										
+				    <p>
+				    
+				    <hr width="20%">
+				    
+				    <h3 align="center">Ingeniería en Sistemas</h3>
+				    
+				    <hr width="20%">
+				    				    
+		    	    </p>
+
+		    	 <h4 class="help"><strong>Autora:</strong></h4>	
+										
+				    <p>
+				    
+				    <hr width="20%">
+				    
+				    <h3 align="center">Lucía Hernández</h3>
+				    <h3 align="center">Veronica Rojas</h3>
+				    
+				    <hr width="20%">
+				    				    
+		    	    </p>
+		    	
+			</div>
+		</div>
+		
+		
+		<!--====================================================================-->
+
+		
+		
+	</div>
+	<div data-role="footer" data-position="fixed" class="footer-docs" data-theme="b">
+		<p>Aplicación Online</p>
+	</div>	
+	</div>
+		
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="https://raw.githubusercontent.com/HPNeo/gmaps/master/gmaps.js"></script>
+
+	</body>
+</html>

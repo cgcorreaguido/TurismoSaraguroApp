@@ -1,0 +1,153 @@
+<!-- Copyright (c) 2014 Mobile Developer Solutions -->
+<!DOCTYPE HTML>
+<html>
+  <head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+
+    <title>Mapa Geografica</title>
+
+ 	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.css" />
+	<link rel="stylesheet" href="index.css" /> 
+
+    <script src="jquery.mobile/jquery-1.7.2.min"></script>
+	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="controlador/cordova.js"></script>
+	<script type="text/javascript" charset="utf-8" src="index.js"></script>
+  
+
+  	<!-- Mapa -->
+  		<link type="text/css" rel="stylesheet" href="mapa/css/960/min/960.css" />
+		<link type="text/css" rel="stylesheet" href="mapa/css/960/min/960_16_col.css" />
+		<link type="text/css" rel="stylesheet" href="mapa/css/normalize/min/normalize.css" />
+		<link type="text/css" rel="stylesheet" href="mapa/css/prettify/min/prettify.css" />
+		<link type="text/css" rel="stylesheet" href="mapa/css/style.css" />
+
+</head>
+  
+  <body onload="init();">
+	<div data-role="page" id="page-home" class="type-interior" data-theme="b">
+	
+
+	<div data-role="header" data-theme="b">
+		<h1>Mapa Geografica</h1>
+ 		<a  data-icon="home" data-iconpos="notext" id="intro" onclick="atras()" class="ui-btn-right" data-transition=pop>intro</a>
+ 		
+	</div>
+
+	<div data-role="content" data-theme="c">
+
+    <div class="container_16">
+		<div id="map_canvas" class="map rounded"></div>
+	</div>
+		
+	</div>
+	<div data-role="footer" data-position="fixed" class="footer-docs" data-theme="b">
+		<p>Aplicación Online</p>
+	</div>
+	</div>	
+
+  </body>
+
+  <script>
+			function atras()
+			  {
+			  window.location.assign("index.html")
+			  }
+			
+		</script>
+		<button type="button" id="btn_more"  data-icon="home" onclick="atras()">Home</button>
+		
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script> 
+		<script type="text/javascript" src="mapa/js/jquery-1.7.1/jquery.min.js"></script>
+		<script type="text/javascript" src="mapa/js/underscore-1.2.2/underscore.min.js"></script>
+		<script type="text/javascript" src="mapa/js/backbone-0.5.3/backbone.min.js"></script>
+		<script type="text/javascript" src="mapa/js/demo.js"></script>
+		<script type="text/javascript" src="mapa/ui/jquery.ui.map.js"></script>
+		<script type="text/javascript">
+            $(function() {
+				demo.add(function() {
+					/*$('#map_canvas').gmap({'center': '-3.974983, -79.202149', 'zoom': 13, 'disableDefaultUI':false, 'callback': function() {
+						var self = this;
+						self.addMarker({'position': this.get('map').getCenter() }).click(function() {
+							self.openInfoWindow({ 'content': '<center>IConservatorio de Música Salvador Bustamante Celi<br><img src="https://mdandrade7.files.wordpress.com/2014/01/ciudad-de-loja.png" alt="Smiley face" height="150" width="150"></center>'}, this);
+						});
+					}});
+					$('#map_canvas').gmap({'center': '-3.986703, -79.205933', 'zoom': 13, 'disableDefaultUI':false, 'callback': function() {
+						var self = this;
+						self.addMarker({'position': this.get('map').getCenter() }).click(function() {
+							self.openInfoWindow({ 'content': '<center>IConservatorio de Música Salvador Bustamante Celi<br><img src="https://mdandrade7.files.wordpress.com/2014/01/ciudad-de-loja.png" alt="Smiley face" height="150" width="150"></center>'}, this);
+						});
+					}});
+					*/
+
+
+					/*MAPA 1*/
+					$('#map_canvas').gmap({ 'center': new google.maps.LatLng(-3.975032, -79.201980) });
+					//$('#map_canvas').gmap('addMarker', { 'position': new google.maps.LatLng(-3.974983, -79.202149) } );
+					$('#map_canvas').gmap('addMarker', { 'position':  '-3.975032, -79.201980', 'bounds': true }).click(function() {
+                		$('#map_canvas').gmap('openInfoWindow', { 'content': '<center>Conservatorio de Música Salvador Bustamante Celi<br><img src="img/rutas/conservatorio_salvador_bustamante_celi.jpg" height="150" width="150"></center>' }, this);
+        			});
+					
+					/*MAPA 2*/
+					$('#map_canvas').gmap({ 'center': new google.maps.LatLng(-3.981655, -79.201426) });
+					$('#map_canvas').gmap('addMarker', { 'position':  '-3.981655, -79.201426', 'bounds': true }).click(function() {
+                		$('#map_canvas').gmap('openInfoWindow', { 'content': '<center>•	Monumento a Salvador Bustamante Celi - (1876 -1935)<br><img src="img/rutas/monumento_salvador_bustamante_celi.jpg" alt="Smiley face" height="150" width="150"></center>' }, this);
+        			});
+
+        			/*MAPA 3*/
+					$('#map_canvas').gmap({ 'center': new google.maps.LatLng(-3.981655, -79.201426) });
+					$('#map_canvas').gmap('addMarker', { 'position':  '-3.992073, -79.201550', 'bounds': true }).click(function() {
+                		$('#map_canvas').gmap('openInfoWindow', { 'content': '<center>3. Monumento a Marco Ochoa Muñoz (1918-1996)<br><img src="img/rutas/monumento_marco_munoz.jpg" alt="Smiley face" height="150" width="150"></center>' }, this);
+        			});
+
+					/*MAPA 4*/
+					$('#map_canvas').gmap({ 'center': new google.maps.LatLng(-3.981655, -79.201426) });
+					$('#map_canvas').gmap('addMarker', { 'position':  '-3.993822, -79.198559', 'bounds': true }).click(function() {
+                		$('#map_canvas').gmap('openInfoWindow', { 'content': '<center>Monumento  a Segundo Cueva Celi (1901-1969)<br><img src="img/rutas/monumento_segundo_cueva_celi.jpg" alt="Smiley face" height="150" width="150"></center>' }, this);
+        			});
+					/*MAPA 5*/
+					$('#map_canvas').gmap({ 'center': new google.maps.LatLng(-3.981655, -79.201426) });
+					$('#map_canvas').gmap('addMarker', { 'position':  '-3.994838, -79.199140', 'bounds': true }).click(function() {
+                		$('#map_canvas').gmap('openInfoWindow', { 'content': '<center>Monumento  a Emiliano Ortega Espinosa (1898-1974) <br><img src="img/rutas/monumento_emiliano_ortega_espinosa.jpg" alt="Smiley face" height="150" width="150"></center>' }, this);
+        			});
+        			/*MAPA 6*/
+					$('#map_canvas').gmap({ 'center': new google.maps.LatLng(-3.981655, -79.201426) });
+					$('#map_canvas').gmap('addMarker', { 'position':  '-3.995863, -79.198161', 'bounds': true }).click(function() {
+                		$('#map_canvas').gmap('openInfoWindow', { 'content': '<center>•	Cristóbal Ojeda Dávila (1906- 1932)<br><img src="img/rutas/monumento_cristobal_ojeda_davila.jpg" alt="Smiley face" height="150" width="150"></center>' }, this);
+        			});
+        			/*MAPA 7*/
+					$('#map_canvas').gmap({ 'center': new google.maps.LatLng(-4.003313, -79.194353) });
+					$('#map_canvas').gmap('addMarker', { 'position':  '-4.003313, -79.194353', 'bounds': true }).click(function() {
+                		$('#map_canvas').gmap('openInfoWindow', { 'content': '<center>•	Manuel de Jesús Lozano (1908- 1994)<br><img src="img/rutas/monumento_manuel_jesus_lozano.jpg" alt="Smiley face" height="150" width="150"></center>' }, this);
+        			});
+        			/*MAPA 8*/
+					$('#map_canvas').gmap({ 'center': new google.maps.LatLng(-3.981655, -79.201426) });
+					$('#map_canvas').gmap('addMarker', { 'position':  '-3.998204, -79.200980', 'bounds': true }).click(function() {
+                		$('#map_canvas').gmap('openInfoWindow', { 'content': '<center>•	Museo de la Música<br><img src="img/rutas/museo_musica.jpg" alt="Smiley face" height="150" width="150"></center>' }, this);
+        			});
+        			/*MAPA 9*/
+					$('#map_canvas').gmap({ 'center': new google.maps.LatLng(-3.981655, -79.201426) });
+					$('#map_canvas').gmap('addMarker', { 'position':  '-3.998328, -79.201735', 'bounds': true }).click(function() {
+                		$('#map_canvas').gmap('openInfoWindow', { 'content': '<center>•	Casona de la Academia de Arte "Santa Cecilia"<br><img src="img/rutas/academia_santa_cecilia.jpg" alt="Smiley face" height="150" width="150"></center>' }, this);
+        			});
+        			/*MAPA 10*/
+					$('#map_canvas').gmap({ 'center': new google.maps.LatLng(-3.981655, -79.201426) });
+					$('#map_canvas').gmap('addMarker', { 'position':  '-4.006671, -79.206946', 'bounds': true }).click(function() {
+                		$('#map_canvas').gmap('openInfoWindow', { 'content': '<center>•	Parque Memorial de la Música<br><img src="img/rutas/parque_memorial_musica.jpg" alt="Smiley face" height="150" width="150"></center>' }, this);
+        			});
+        			/*MAPA 11*/
+					$('#map_canvas').gmap({ 'center': new google.maps.LatLng(-3.981655, -79.201426) });
+					$('#map_canvas').gmap('addMarker', { 'position':  '-4.036950, -79.204942', 'bounds': true }).click(function() {
+                		$('#map_canvas').gmap('openInfoWindow', { 'content': '<center>•	Plaza de la Cultura Universitaria Lojana.<br><img src="img/rutas/plaza_cultural_universitaria.jpg" alt="Smiley face" height="150" width="150"></center>' }, this);
+        			});
+        			
+					
+				}).load();
+			});
+        </script>
+
+
+</html>
+
+</html>

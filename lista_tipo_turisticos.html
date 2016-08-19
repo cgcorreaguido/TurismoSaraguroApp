@@ -1,0 +1,63 @@
+<!-- Copyright (c) 2014 Mobile Developer Solutions -->
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+
+    <title>Lista Turistica</title>
+
+ 	<!--Css de jquery mobile-->
+ 	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.css" />
+	<link rel="stylesheet" href="index.css" />
+    <script src="jquery.mobile/jquery-1.7.2.min"></script>
+
+	<!--Script de jquery mobile y cordova-->
+	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="controlador/cordova.js"></script>
+	<script type="text/javascript" charset="utf-8" src="index.js"></script>
+
+
+	<script src="http://j.maxmind.com/app/geoip.js"></script>
+	<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+	<script src="https://raw.githubusercontent.com/HPNeo/gmaps/master/gmaps.js"></script>
+	
+	<script type="text/javascript" src="controlador/lista_tipo_turisticos.js"></script>
+
+	
+
+<title>LISTA TURISTICA</title>
+
+</head>
+<body onload="load();" onunload="GUnload();">
+
+
+
+<div data-role="page" id="page_lista_tipo_turisticos" data-theme="b" data-add-back-btn="true">
+		<div data-role="header" data-theme="b">
+			<h1>Lista Lugares Turisticos</h1>
+			<a href="index.html" data-icon="home" data-iconpos="notext" id="intro" class="ui-btn-right" data-transition="pop">intro</a>
+		</div>
+		
+		<div data-role="content" id="">
+		
+		
+			<h4 class="help"><b>Seleccion de</b><br/>
+			<b>"Lugares Turisticos".</b> </h4> 
+			
+			<br>
+					<ul id="id_lista_tipo_turisticos" data-role="listview" data-theme="a">
+							
+					</ul>
+
+			<hr>
+
+<!--==================================================================================================-->
+			
+	
+</div>
+
+
+</body>
+</html>

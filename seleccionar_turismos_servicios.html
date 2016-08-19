@@ -1,0 +1,72 @@
+<!Doctype html>
+<html lang=”es”>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+
+    <title>Ruta Turistica</title>
+
+ 	<!--Css de jquery mobile-->
+ 	<link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.css" />
+	<link rel="stylesheet" href="index.css" />
+    <script src="jquery.mobile/jquery-1.7.2.min"></script>
+
+	<!--Script de jquery mobile y cordova-->
+	<script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
+	<script type="text/javascript" charset="utf-8" src="controlador/cordova.js"></script>
+	<script type="text/javascript" charset="utf-8" src="index.js"></script>
+
+
+
+<script type="text/javascript">
+       function salir(){
+            navigator.app.exitApp();	
+       }
+       function abrirListaTuristicos(){
+ 		  window.location.assign("lista_tipo_turisticos.html")
+ 	   }
+ 	   function abrirListaServicios(){
+ 		  window.location.assign("lista_tipo_servicios.html")
+ 	   }
+ 	   
+</script>
+
+</head>
+
+<body>
+
+<div data-role="page" id="page" >
+		<div data-role="header" data-theme="b">
+			<h1>Selección de la Ruta Turistica</h1>
+			<a href="index.html" data-icon="home" data-iconpos="notext" id="intro" class="ui-btn-right" data-transition="pop">intro</a>
+		</div>
+		
+		<div data-role="content" id="contenedor" data-theme="b">
+
+			<hr>
+				<blockquote>
+  					<p><code>Seleccione </code> el tipo de ruta que desea visualizar:</p>
+				</blockquote>
+			<hr>
+			
+			<ul>
+			  <li><a data-role="button" data-icon="star" onclick="abrirListaTuristicos();">Sitios Turisticos</a></li>
+			</ul>
+
+			<ul>
+			  <li><a data-role="button" data-icon="star" onclick="abrirListaServicios();">Servicios</a></li>
+			</ul>
+
+
+		
+		</div>		
+		
+			
+</div>
+
+
+	
+        
+</body>
+
+</html>
